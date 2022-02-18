@@ -23,3 +23,5 @@ Me2 = ((mu/(a^3))^(1/2))*t_tot;
 E2 = Mean2Ecc(Me2,e);
 theta2 = rad2deg(Ecc2True(E2,e));
 
+fprintf('True anomaly: %.f\n',theta2)
+
