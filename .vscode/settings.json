@@ -1,0 +1,19 @@
+{
+    "matlab.mlintpath": "D:\\MATLAB\\R2019a\\bin\\win64\\mlint.exe",
+
+    "matlab.linterEncoding": "gb2312",
+  
+    "files.associations": {
+  
+      "*.m": "matlab"
+  
+    },
+  
+    "matlab.matlabpath": "D:\\MATLAB\\R2019a\\bin\\matlab.exe",
+  
+    "[matlab]": {
+  
+      "files.encoding": "gb2312"
+  
+    }
+}
