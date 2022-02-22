@@ -1,3 +1,6 @@
+% Álvaro Reviriego Moreno & Enrique Sentana Gómez
+% Orbital Mechanics. Homework 1
+
 clear; clc; close all; 
 
 % Define the angular velocity and the radius of the Earth as global variables 
