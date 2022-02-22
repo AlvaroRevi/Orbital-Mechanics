@@ -7,5 +7,9 @@ function Me = Ecc2Mean(E, e)
 %
 % Output: 
 %     Me: mean anomaly
-    Me = E-e*sin(E);
+  if e > 1 
+      error('e must be < 1 in an ellipse')
+  end
+
+  Me = E-e*sin(E);
 end
