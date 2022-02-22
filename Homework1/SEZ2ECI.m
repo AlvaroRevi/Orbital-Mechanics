@@ -27,7 +27,19 @@ A_0_1 = [sin(lambda)*cos(theta), sin(lambda)*sin(theta), -cos(lambda);
 A_1_0 = transpose(A_0_1); 
 
 % Compute r0 in SEZ basis and transform it into the ECI basis
-r0 = [0,0,rho] + r1;
-r0 = A_1_0*r0; 
-error('Not completed yet')
+r0_1 = [0,0,rho] + r1;     %r0 in S1
+r0_0 = A_1_0*r0_1';         %r0 in S0 
 
+% Compute the angular velocity 
+w_10_0 = [0,0,theta_dot];  %w10 in S0 
+w_10_1 = A_0_1*w_10_0';     %w10 in S1
+
+% Compute v0 in S1 and transform it to S0 
+v0_1 = rho*cross(w_10_1,[0,0,1]') + v1' + cross(w_10_1,r1'); 
+v0_0 = A_1_0*v0_1; 
+
+% Return outputs 
+r0 = r0_0; 
+v0 = v0_0; 
+
+end
