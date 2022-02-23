@@ -5,7 +5,10 @@ clear; clc; close all;
 
 % Define the angular velocity and the radius of the Earth as global variables 
 global R_e
-global theta_dot 
+global theta_dot
+global muE
+
+muE = 398600;
 R_e = 6371;  %[km]
 theta_dot = 2*pi/86400;
 
@@ -18,6 +21,8 @@ t_0 = 16200;                            % Time from 13:30 until 18:00 [s]
 % Exercise 1
 [r0, v0] = SEZ2ECI(r1,v1,R_e, lambda,t_0); 
 
+% Exercise 2
+[a,e,RAAN,i,omega,theta] = rv2coe(r0,v0);
 
 
 
