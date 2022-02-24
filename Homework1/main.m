@@ -5,12 +5,12 @@ clear; clc; close all;
 
 % Define the global variables 
 global R_e
-global theta_dot
+global angular_rate
 global muE
 
 muE = 398600;                   % Gravitational constant of the Earth [kg*km^3/s]
 R_e = 6371;  %[km]              % Earth radius [km]
-theta_dot = 2*pi/86400;         % Angular rate of the Earth about its rotation axis [rad/s]
+angular_rate = 2*pi/86400;         % Angular rate of the Earth about its rotation axis [rad/s]
 
 %% Initial data 
 
