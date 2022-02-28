@@ -26,10 +26,10 @@ t_0 = 16200;                            % Time from 13:30 until 18:00 [s]
 [a,e,RAAN,i,omega,theta] = rv2coe(r0,v0);
 
 % Change the angles from rad to deg (optional)
-omega = rad2deg(omega); 
-RAAN = rad2deg(RAAN);
-i = rad2deg(i); 
-theta = rad2deg(theta); 
+% omega = rad2deg(omega); 
+% RAAN = rad2deg(RAAN);
+% i = rad2deg(i); 
+% theta = rad2deg(theta); 
 
 theta_inf = acos(-1/e); % True anomaly of the asymptotes
 beta = pi-theta_inf; % [rad]
@@ -39,8 +39,18 @@ B = -e*a*sin(beta); % Impact parameter
 vH = sqrt(-muE/a); % Excess hyperbolic velocity [km/s]
 
 %% Exercise 3
+H = True2EccH(theta, e);
+M_h = e*sinh(H) - H; 
+eta_H = sqrt(-muE/(a^3)); 
+t = M_h/eta_H; 
 
 %% Exercise 4
 
+
+
+
 %% Exercise 5
+
+
+
 
