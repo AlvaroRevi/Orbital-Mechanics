@@ -42,14 +42,14 @@ A_1_2 = [sin(lambda), 0, cos(lambda);
 A_2_1 = transpose(A_1_2); 
 
 % Compute r0 in SEZ basis and transform it into the ECI basis
-r2_2 = A_2_1*A_1_0*r_ECI - [0,0,rho];        %r2 in S2
-r2_0 = A_0_1*A_1_2*r2_2';                    %r2 in S0 
+r2_2 = A_2_1*A_1_0*r_ECI - [0;0;rho];        %r2 in S2
+r2_0 = A_0_1*A_1_2*r2_2;                    %r2 in S0 
 
 % Compute the angular velocity 
-w_20_0 = [0;0;angular_rate];     %w20 in S0 
+w20_0 = [0;0;angular_rate];     %w20 in S0 
 
 % Compute v0 in ECI (S0) using Coriolis theorem 
-v2_0 = v_ECI - cross(w_20_0,r_ECI); 
+v2_0 = v_ECI - cross(w20_0,r_ECI); 
 v2_2 = A_2_1*A_1_0*v2_0;
 
 % Return outputs 

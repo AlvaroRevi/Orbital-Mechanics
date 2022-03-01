@@ -15,8 +15,8 @@ angular_rate = 2*pi/86400;         % Angular rate of the Earth about its rotatio
 %% Initial data 
 
 lambda = deg2rad(40);                   % Latitude (40 deg) 
-r1 = [-735761,506988,-540928];         % Position vector in S1 [km]
-v1 = [25.3451, 62.8133, 29.5876];     % Velocity vector in S1 [km/s]
+r1 = [-339191,-982468,55572.6];         % Position vector in S1 [km]
+v1 = [46.5606, -16.8690, -54.8913];     % Velocity vector in S1 [km/s]
 t_0 = 16200;                            % Time from 13:30 until 18:00 [s]
 
 %% Exercise 1
@@ -45,7 +45,7 @@ eta_H = sqrt(-muE/(a^3));
 t_periapsis = -M_h/eta_H; 
 
 [r0_3, v0_3] = SEZ2ECI(r1,v1,R_e, lambda,t_periapsis);
-[r1_3,v1_3] = ECI2SEZ(r0_3,v0_3,R_e,lambda,t_periapsis);
+[r1_3,v1_3] = ECI2SEZ(r0_3,v0_3,R_e,lambda,t_periapsis)
 %% Exercise 4
 
 

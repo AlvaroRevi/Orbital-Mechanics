@@ -45,10 +45,10 @@ r0_2 = [0,0,rho] + r_SEZ;        %r0 in S2
 r0_0 = A_0_1*A_1_2*r0_2';         %r0 in S0 
 
 % Compute the angular velocity 
-w_20_0 = [0;0;angular_rate];     %w20 in S0 
+w20_0 = [0;0;angular_rate];     %w20 in S0 
 
 % Compute v0 in ECI (S0) using Coriolis theorem 
-v0_0 = A_0_1*A_1_2*v_SEZ' + cross(w_20_0,r0_0); 
+v0_0 = A_0_1*A_1_2*v_SEZ' + cross(w20_0,r0_0); 
 
 % Return outputs 
 r0 = r0_0; 
