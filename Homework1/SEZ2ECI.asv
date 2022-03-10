@@ -21,9 +21,9 @@ theta = theta_dot*t;   % Longitude [rad]
 lambda_aux = theta;
 phi = lambda;
 % Rotation matrix from S0 to S1
-A_aux_1 = [cos(phi), 0, sin(phi); 
+A_aux_1 = [sin(phi), 0, cos(phi); 
            0, 1, 0;
-           -sin(phi), 0, cos(phi)];
+           -cos(phi), 0, sin(phi)];
 
 A_0_aux = [cos(lambda_aux ) -sin(lambda_aux ) 0;
            sin(lambda_aux ), cos(lambda_aux ), 0;
@@ -33,7 +33,7 @@ A_0_1 = A_0_aux * A_aux_1;
 
 % Rotation matrix from S1 to S0 
  A_1_0 = transpose(A_0_1);
-if transpose(A_0_aux) == inv(A_0_aux) && transpose(A_aux_1) == inv(A_aux_1)
+if (transpose(A_0_aux) == inv(A_0_aux)) && (transpose(A_aux) == inv(A_0_aux))
     disp('Puta madre');
 end
 
