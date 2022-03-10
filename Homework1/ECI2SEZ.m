@@ -1,5 +1,5 @@
-function  [r0,v0] = SEZ2ECI(r_SEZ,v_SEZ,rho,lambda,t) 
-% Compute the position and velocity vectors (r0,v0) in ECI basis provided 
+function  [r2,v2] = ECI2SEZ(r_ECI,v_ECI,rho,lambda,t) 
+% Compute the position and velocity vectors (r2,v2) in SEZ basis provided 
 % the position and velocity vectors in SEZ basis, the radius (rho), the 
 % latitude (lambda) of the observer from the center of the Earth, and the 
 % the time since the observer crossed the Oxz plane.
@@ -11,14 +11,14 @@ function  [r0,v0] = SEZ2ECI(r_SEZ,v_SEZ,rho,lambda,t)
 %    they are expressed 
 %
 %     Inputs: 
-%         r_SEZ: position vector in SEZ basis (introduced as row vector)[km] 
-%         v_SEZ: velocity vector in SEZ basis (introduced as row vector)[km]
+%         r_ECI: position vector in ECI basis (introduced as row vector)[km] 
+%         v_ECI: velocity vector in ECI basis (introduced as row vector)[km]
 %         rho: radius (in this case, radius f the Earth) [km]
 %         lambda: latitude of the observer [rad]
 %         t: time since the observer crossed the Oxz plane [s]
 %     Outputs: 
-%         r0: position vector in ECI basis [km]
-%         v0: velocity vector in ECI basis [km]
+%         r2: position vector in SEZ basis [km]
+%         v2: velocity vector in SEZ basis [km]
 
 % Compute the longitude of the observer considering the rotation of the
 % Earth and the time passed from the Oxz plane 
@@ -29,6 +29,7 @@ varphi = angular_rate*t;        % Longitude [rad]
 A_0_1 = [cos(varphi), -sin(varphi), 0;
          sin(varphi), cos(varphi),0; 
          0,          0,           1]; 
+
 % Rotation matrix from ECI (S0) to ECEF (S1) 
 A_1_0 = transpose(A_0_1); 
 
@@ -41,17 +42,18 @@ A_1_2 = [sin(lambda), 0, cos(lambda);
 A_2_1 = transpose(A_1_2); 
 
 % Compute r0 in SEZ basis and transform it into the ECI basis
-r0_2 = [0,0,rho] + r_SEZ;        %r0 in S2
-r0_0 = A_0_1*A_1_2*r0_2';         %r0 in S0 
+r2_2 = A_2_1*A_1_0*r_ECI - [0;0;rho];        %r2 in S2
+r2_0 = A_0_1*A_1_2*r2_2;                    %r2 in S0 
 
 % Compute the angular velocity 
 w20_0 = [0;0;angular_rate];     %w20 in S0 
 
 % Compute v0 in ECI (S0) using Coriolis theorem 
-v0_0 = A_0_1*A_1_2*v_SEZ' + cross(w20_0,r0_0); 
+v2_0 = v_ECI - cross(w20_0,r_ECI); 
+v2_2 = A_2_1*A_1_0*v2_0;
 
 % Return outputs 
-r0 = r0_0; 
-v0 = v0_0; 
+r2 = r2_2; 
+v2 = v2_2; 
 
 end
