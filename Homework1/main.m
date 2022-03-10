@@ -46,6 +46,7 @@ t_periapsis = -M_h/eta_H;
 
 [r0_3, v0_3] = SEZ2ECI(r1,v1,R_e, lambda,t_periapsis);
 [r1_3,v1_3] = ECI2SEZ(r0_3,v0_3,R_e,lambda,t_periapsis);
+
 %% Exercise 4
 
 
