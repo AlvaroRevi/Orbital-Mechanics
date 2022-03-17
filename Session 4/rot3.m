@@ -30,10 +30,6 @@ function R = rot3(axis, angle)
 %     0.5000    0.8660         0
 %          0         0    1.0000
 
-% Copyright 2004-2005 Paul Leopardi for the University of New South Wales.
-% $Revision 1.10 $ $Date 2005-06-01 $
-% Documentation files renamed
-% $Revision 1.00 $ $Date 2005-02-12 $
 %
 % For licensing, see COPYING.
 % For references, see AUTHORS.
