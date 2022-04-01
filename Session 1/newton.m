@@ -1,5 +1,5 @@
 
-function x = newton(f,df,x0) % tol, maxiter)
+function x = newton(f,df,x0, tol, maxiter)
 % Newton-Rhapson routine with inputs: 
 % f: function handle to be solved 
 % df: derivative of f 
@@ -35,13 +35,14 @@ while abs(f(x_old)) > tol && i < maxiter
 end 
     
 % Check the validity of the solution and raise error if needed
-if isinf(x) || isnan(x) || (iter>maxiter)
-    error('THE SOLUTION DIVERGED.');
-end    
+% if isinf(x) || isnan(x) || (iter>maxiter)
+%     error('THE SOLUTION DIVERGED.');
+% end    
 
 % Print final solution
 fprintf('\nSolution converged\n')
 fprintf('Iteration: %d  x= %.5f  f(x) = %.5E\n',i,x_old,f(x_old))
+x = x_old;
 
 end
  

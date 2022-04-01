@@ -24,7 +24,7 @@ function Dt = tof(mu,a,e,theta1,theta2)
     n = sqrt(mu/(a^3)); 
 
 % Compute the time of flight 
-    Dot = (M_e2 - M_e1)/n; 
+    Dt = (M_e2 - M_e1)/n; 
 
 end
 
