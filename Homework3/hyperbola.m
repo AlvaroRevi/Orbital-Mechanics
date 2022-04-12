@@ -2,7 +2,7 @@ function [theta,Dv] = hyperbola(mu,a,e,Omega,i,omega,vh)
 % Find the parking orbit true anomaly (theta) and the injection impulse Dv
 % to go from parking orbit to escape hyperbola.
 %
-% Inputs: 
+% Inputs:
 %    mu: gravitational parameter [km^3/s^2]
 %    a: semi-major axis of the ellipse [km]
 %    e: eccentricity
