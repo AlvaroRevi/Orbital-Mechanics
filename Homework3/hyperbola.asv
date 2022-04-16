@@ -21,11 +21,9 @@ theta_span = linspace(0,2*pi,360);
 
 % For each theta, compute the radius of the orbit associated. Then, compute
 % the radius vector associated 
+
 r_span = zeros(1,length(theta_span));
 
-% Create variables to store the latter best combination
-theta_min = 0;
-DeltaV_min = 1e5;
 
 for i = 1:length(theta_span)
 
@@ -35,28 +33,34 @@ for i = 1:length(theta_span)
     stat = coe2stat([a,e,i,Omega,omega,theta_span(i)],mu);
     r = stat(1:3); 
     v = stat(4:end); 
+    
+    % Compute 2 different possibilities 
 
     % Compute the normal of the orbital plane 
-    normal = cross(r,vh);
+    normal1 = cross(r,vh);
+    normal2 = cross(-r,vh);
     
     % Compute the vectors of the B plane
     
     s = vh/norm(vh); 
-    t = cross(s,normal)/(norm(s)*norm(normal));
-    m = cross(normal,t);
-    u = cross(s,t);
+    t1 = cross(s,normal1);
+    m1 = cross(nornal1,t1);
+    u1 = cross(s,t1);
+
+    t2 = cross(s,normal2);
+    m2 = cross(normal2,t2);
+    u2 = cross(s,t2);
 
     B = sqrt(r_span(i)^2 + (2*r_span(i)*mu/(norm(vh)^2))); 
     B_vec = B*cos(theta_span(i))*t + B*sin(theta_span(i))*u;
     
-    v1_ep = ;
-    v1_cc = ;
+    DeltaV1 = v1_ep1 - v1_cc1;
+    DeltaV2 = v1_ep2 - v1_cc2;
 
-    DeltaV(i) = v1_ep - v1_cc;
-
-    if DeltaV(i)<DeltaV_min
-        DeltaV_min = DeltaV(i);
-        theta_min = theta_span(i);
+    if DeltaV1>DeltaV2
+        DeltaV(i) = DeltaV2;
+    else
+        DeltaV(i) = DeltaV1;
     end
 end
 

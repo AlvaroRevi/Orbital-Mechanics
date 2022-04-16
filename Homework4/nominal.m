@@ -24,6 +24,9 @@ function omega_b0 = nominal(mu,a,e,w,nu)
 
     theta_dot = h/(r^2); 
 
-% Compute the angular velocity vector 
-    omega_b0 = theta_dot*w; 
+% Compute the angular velocity vector
+    omegax = 0;
+    omegay = 0;
+    omegaz = theta_dot*w;
+    omega_b0 = [omegax;omegay;omegaz]; 
 end 

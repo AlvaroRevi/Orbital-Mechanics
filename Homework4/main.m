@@ -35,3 +35,28 @@ legend('$\vec i_{0}$','$\vec j_{0}$','$\vec k_{0}$','Interpreter','latex')
 %% Exercise b 
 
 
+%% Exercise c
+
+N = 200;
+n = sqrt(mu/a^3);
+time = linspace(0,2*pi/n,N);
+
+Hp = 4.4e-2;
+H_G0 = [0;Hp;I_g*n];
+
+for i=1:N
+    angles(2) = n*t(i);
+    omega_b0 = nominal(mu,a,e,w,nu);
+    [omegaA(i),omegaB(i),omegaC(i)] = wheels(w,nu,angles,omega_b0,H_G0);
+end
+
+figure
+hold on
+plot(t,omegaA)
+plot(t,omegaB)
+plot(t,omegaC)
+xlabel('$time$','Interpreter','latex','FontSize',18)
+ylabel('$\omega_{wheel}$','Interpreter','latex','FontSize',18)
+legend('$\omega_{A}$','$\omega_{B}$','$\omega_{C}$','Interpreter','latex')
+hold off
+
