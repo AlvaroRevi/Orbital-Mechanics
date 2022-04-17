@@ -12,9 +12,12 @@
 %    vh: scape velocity vector 
 %
 % Output: 
-%    theta: true anomaly 
+%    theta: true anomaly of the parking orbit
 %    Dv: injection impulse
 
+% Compute orbital parameter and angular momentum 
+p = a*(1-e^2); 
+h = sqrt(mu*p); 
 
 % Span the vector of thetas and compute the radius associated to each 
 theta_span = linspace(0,2*pi,360);
@@ -29,7 +32,7 @@ DeltaV_min = 1e5;
 
 for i = 1:length(theta_span)
 
-    r_span(i) = a*(1-e);
+    r_span(i) = p/(1+e*cos(theta_span(i)));  % Eq 1.32 
 
     % Compute the r and the v associated to each theta in ICRF        
     stat = coe2stat([a,e,i,Omega,omega,theta_span(i)],mu);
