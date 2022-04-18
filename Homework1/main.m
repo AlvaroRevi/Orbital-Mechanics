@@ -44,16 +44,44 @@ M_h = e*sinh(H) - H;
 eta_H = sqrt(-muE/(a^3)); 
 t_periapsis = -M_h/eta_H; 
 
-[r0_3, v0_3] = SEZ2ECI(r1,v1,R_e, lambda,t_periapsis);
-[r1_3,v1_3] = ECI2SEZ(r0_3,v0_3,R_e,lambda,t_periapsis);
+% Compute the position and velocity at 90h
+t_90 = 90*3600;                      % 90 hours
+n_h = sqrt(-muE/a^3);                  % Mean angular rate 
+M_h90 = n_h*(t_90 - t_periapsis);    % Mean anomaly at 90h
+
+H_90 = Mean2EccH(M_h90,e);
+theta_90 = Ecc2TrueH(H_90,e);
+
+X = coe2stat([a,e,i,RAAN,omega,theta_90],muE);
+r_90 = X(1:3);                      % Position vector in ECI
+v_90 = X(4:6);                      % Velocity vector in ECI 
+
+[r_90_1,v_90_1] = ECI2SEZ(r_90,v_90,R_e,lambda,t_0 + t_90); 
 
 %% Exercise 4
+
+% Part A - Elliptic orbit 
+e_A = 0.7; 
+theta_A = deg2rad(-110); 
+v_A = 0.5*norm(v_90); 
+r_A = norm(r_90);
+
+a_A = muE/(2*(muE/r_A)-(v_A^2));
+
+% As the body A is in the same plane as the initial one, the rest of the
+% COEs will be the same 
+i_A = i;
+RAAN_A = RAAN; 
+omega_A = omega; 
+
+
 
 
 
 
 %% Exercise 5
 
+% Equation 2.10 ??? 
 
 
 

@@ -13,7 +13,7 @@ function  [r2,v2] = ECI2SEZ(r_ECI,v_ECI,rho,lambda,t)
 %     Inputs: 
 %         r_ECI: position vector in ECI basis (introduced as row vector)[km] 
 %         v_ECI: velocity vector in ECI basis (introduced as row vector)[km]
-%         rho: radius (in this case, radius f the Earth) [km]
+%         rho: radius (in this case, radius of the Earth) [km]
 %         lambda: latitude of the observer [rad]
 %         t: time since the observer crossed the Oxz plane [s]
 %     Outputs: 
