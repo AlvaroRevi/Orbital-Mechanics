@@ -11,7 +11,7 @@ function a = drag_acceleration(rho,BC,V)
 %                 [m/s^2]
         
         % Convert velocity vector into SI 
-        V = V*1000; 
+%         V = V*1000; 
         
         % Compute drag 
         a = - 1/(2*BC)*rho*norm(V)*V; 
