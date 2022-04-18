@@ -16,7 +16,7 @@ m = 3000;                       % Mass of the spacecraft [kg]
 mu = 0.428284e5; % Gravitational parameter in Mars [km^3/s^2]
 
 X = coe2stat([a,e,i,Omega,omega,theta_0],mu);
-X(3)
+
 %% Exercise e
 
 flag = false;
@@ -25,6 +25,42 @@ tf = 90*24*3600;
 dt1 = 300;
 t1 = 0:dt1:tf;
 X1 = RK4(X,dt1,flag);
+
+for j =1:length(X1)
+    coe1(:,j) = stat2coe(X1(:,j),mu); 
+end
+
+
+figure(1)
+    subplot(2,3,1)
+    plot(t1/(24*3600),coe1(1,:)/1000,'k')
+    xlabel('$t$ [days]','Interpreter','latex')
+    ylabel('$a$ [km]','Interpreter','latex')
+
+    subplot(2,3,2)
+    plot(t1/(24*3600),coe1(2,:),'k')
+    xlabel('$t$ [days]','Interpreter','latex')
+    ylabel('$e$','Interpreter','latex')
+    
+    subplot(2,3,3)
+    plot(t1/(24*3600),coe1(3,:),'k')
+    xlabel('$t$ [days]','Interpreter','latex')
+    ylabel('$i$ ','Interpreter','latex')
+
+    subplot(2,3,4)
+    plot(t1/(24*3600),coe1(4,:),'k')
+    xlabel('$t$ [days]','Interpreter','latex')
+    ylabel('$RAAN$ ','Interpreter','latex')
+
+    subplot(2,3,5)
+    plot(t1/(24*3600),coe1(5,:),'k')
+    xlabel('$t$ [days]','Interpreter','latex')
+    ylabel('$\omega$ ','Interpreter','latex')
+    
+    subplot(2,3,6)
+    plot(t1/(24*3600),coe1(6,:),'k')
+    xlabel('$t$ [days]','Interpreter','latex')
+    ylabel('$\omega$ ','Interpreter','latex')
 
 dt2 = 150; 
 t2 = 0:dt2:tf;
@@ -38,12 +74,7 @@ dt4 = 37.5;
 t4 = 0:dt4:tf;
 X4 = RK4(X,dt4,flag);
 
-figure 
-hold on
-grid minor
 
-
-hold off
 
 %% Exercise f
 X4 = RK4(X,dt4,true);
