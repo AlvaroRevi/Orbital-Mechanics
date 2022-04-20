@@ -38,10 +38,9 @@ theta = coe(6);
 
 theta_inf = acos(-1/e); % True anomaly of the asymptotes
 beta = pi-theta_inf; % [rad]
-
 delta = pi -2*beta; % Turning angle
 B = -e*a*sin(beta); % Impact parameter
-vH = sqrt(-muE/a); % Excess hyperbolic velocity [km/s]
+vH = sqrt(-muE/a);  % Excess hyperbolic velocity [km/s]
 
 %% Exercise 3
 H = True2EccH(theta, e);
