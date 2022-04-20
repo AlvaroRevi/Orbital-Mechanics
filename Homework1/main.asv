@@ -87,17 +87,11 @@ v_A_0 = X_A(4:6);
 
 % By conservation of linear momentum 
 r_B_0 = r_A_0; 
-v_B_0 = v_90 - 0.5*v_A_0;
+v_B_0 = v_90 - 0.v_A_0; 
 
-% Get the COEs from the state vector 
-coeB = stat2coe([r_B_0,v_B_0],muE); 
 
-a_B = coeB(1);
-e_B = coeB(2);
-i_B = coeB(3); 
-RAAN_B = coe(4); 
-omega_B = coe(5); 
-theta_B = coe(6); 
+
+
 
 %% Exercise 5
 % Calculate apoapsis (rF) and periapsis (rA) and use Eq 2.7 
