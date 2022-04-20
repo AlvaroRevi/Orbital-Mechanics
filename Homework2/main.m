@@ -32,64 +32,57 @@ end
 
 
 figure(1)
-    subplot(2,3,1)
-    plot(t1/(24*3600),coe1(1,:)/1000,'k')
-    xlabel('$t$ [days]','Interpreter','latex')
-    ylabel('$a$ [km]','Interpreter','latex')
-
-    subplot(2,3,2)
-    plot(t1/(24*3600),coe1(2,:),'k')
-    xlabel('$t$ [days]','Interpreter','latex')
-    ylabel('$e$','Interpreter','latex')
-    
-    subplot(2,3,3)
-    plot(t1/(24*3600),coe1(3,:),'k')
-    xlabel('$t$ [days]','Interpreter','latex')
-    ylabel('$i$ ','Interpreter','latex')
-
-    subplot(2,3,4)
-    plot(t1/(24*3600),coe1(4,:),'k')
-    xlabel('$t$ [days]','Interpreter','latex')
-    ylabel('$RAAN$ ','Interpreter','latex')
-
-    subplot(2,3,5)
-    plot(t1/(24*3600),coe1(5,:),'k')
-    xlabel('$t$ [days]','Interpreter','latex')
-    ylabel('$\omega$ ','Interpreter','latex')
-    
-    subplot(2,3,6)
-    plot(t1/(24*3600),coe1(6,:),'k')
-    xlabel('$t$ [days]','Interpreter','latex')
-    ylabel('$\omega$ ','Interpreter','latex')
+plot_orbit(t1,coe1)
 
 dt2 = 150; 
 t2 = 0:dt2:tf;
 X2 = RK4(X,dt2,flag);
 
+for j =1:length(X2)
+    coe2(:,j) = stat2coe(X2(:,j),mu); 
+end
+
+figure(2)
+plot_orbit(t2,coe2)
+
 dt3 = 75;
 t3 = 0:dt3:tf; 
 X3 = RK4(X,dt3,flag);
+
+for j =1:length(X3)
+    coe3(:,j) = stat2coe(X3(:,j),mu); 
+end
+
+figure(3)
+plot_orbit(t3,coe3)
 
 dt4 = 37.5;
 t4 = 0:dt4:tf;
 X4 = RK4(X,dt4,flag);
 
+for j =1:length(X4)
+    coe4(:,j) = stat2coe(X4(:,j),mu); 
+end
+
+figure(4)
+plot_orbit(t4,coe4)
 
 
 %% Exercise f
-X4 = RK4(X,dt4,true);
+X4_2 = RK4(X,dt4,true);
 
-for k=1:length(X4(1,:))
-    if norm(X4(1:3,k))<50
+for k=1:length(X4_2(1,:))
+    if norm(X4_2(1:3,k))<50
         return
     end
-    [a4(k),e4(k),RAAN4(k),i4(k),omega4(k),theta4(k)] = rv2coe(X4(1:3,k),X4(4:end,k)); 
+    coe4_2(:,j) = stat2coe(X4_2(:,j),mu);
 end
+
 
 figure 
 hold on
 grid minor
-plot(t4,a4)
+plot(t4,coe4_2(1,:)/1000)
 legend('Semi-major axis',Interpreter='latex')
 xlabel('time [s]',Interpreter='latex')
 ylabel('a [km]',Interpreter='latex')
@@ -98,7 +91,7 @@ hold off
 figure 
 hold on
 grid minor
-plot(t4,e4)
+plot(t4,coe4_2(2,:)/1000)
 legend('Eccentriity',Interpreter='latex')
 ylabel('e',Interpreter='latex')
 xlabel('time [s]',Interpreter='latex')
@@ -107,7 +100,7 @@ hold off
 figure 
 hold on
 grid minor
-plot(t4,omega4)
+plot(t4,coe4_2(4,:))
 legend('Argument of perigee',Interpreter='latex')
 ylabel('$\omega$',Interpreter='latex')
 xlabel('time [s]',Interpreter='latex')

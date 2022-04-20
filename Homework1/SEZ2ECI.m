@@ -22,7 +22,7 @@ function  [r0,v0] = SEZ2ECI(r_SEZ,v_SEZ,rho,lambda,t)
 
 % Compute the longitude of the observer considering the rotation of the
 % Earth and the time passed from the Oxz plane 
-global angular_rate 
+angular_rate = 2*pi/86400;
 varphi = angular_rate*t;        % Longitude [rad]
  
 % Rotation matrix from ECEF (S1) to ECI (S0)
