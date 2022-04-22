@@ -20,5 +20,5 @@ function rho = Mars_atmosphere(zeta)
     rho_ref = p_ref*M/(R*T); 
 
 % Compute the evolution of density as a function of height (zeta) 
-    rho = rho_ref*exp((zeta_ref-zeta)/H); 
+    rho = rho_ref*exp((zeta_ref-zeta)*1000/H); 
 end 
