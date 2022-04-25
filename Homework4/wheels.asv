@@ -1,0 +1,10 @@
+function [omegaA,omegaB,omegaC] = wheels(w,nu,angles,omega_b0,H_G0)
+
+I_fullG = diag([220,180,300]); 
+
+r = 0.05; 
+m = 2; 
+I1 = m*r^2/2; 
+
+
+end
