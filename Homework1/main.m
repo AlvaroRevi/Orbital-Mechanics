@@ -66,16 +66,19 @@ v_90 = X(4:6);                      % Velocity vector in ECI
 % Part A - Elliptic orbit 
 e_A = 0.7; 
 theta_A = deg2rad(-110); 
-v_A = 0.5*norm(v_90); 
+
 r_A = norm(r_90);
 
-a_A = muE/(2*(muE/r_A)-(v_A^2));
+p_A = r_A*(1+e_A*cos(theta_A)); 
+a_A = p_A/(1-e_A^2);
 
 % As the body A is in the same plane as the initial one, the rest of the
 % COEs will be the same 
 i_A = i;
 RAAN_A = RAAN; 
-omega_A = omega; 
+
+omega_A = omega + (theta_90 - theta_A);
+
 
 % Once the elliptic orbit A is calculated, one may find the state vector 
 X_A = coe2stat([a_A,e_A,i_A,RAAN_A, omega_A,theta_A],muE);
@@ -86,7 +89,7 @@ v_A_0 = X_A(4:6);
 
 % By conservation of linear momentum 
 r_B_0 = r_A_0; 
-v_B_0 = v_90 - 0.5*v_A_0;
+v_B_0 = 2*v_90 - v_A_0;
 
 % Get the COEs from the state vector 
 coeB = stat2coe([r_B_0,v_B_0],muE); 
@@ -100,10 +103,13 @@ theta_B = coe(6);
 
 %% Exercise 5
 % Calculate apoapsis (rF) and periapsis (rA) and use Eq 2.7 
-rA = a_A*(1-e_A);
-rF = a_A*(1+e_A); 
+r_periapsis = a_A*(1-e_A);
+r_apoapsis = a_A*(1+e_A); 
 
-deltaV = sqrt(muE/rF) - sqrt((2*muE/rF)-(2*muE/(rA+rF))); 
+rF = r_periapsis;
+rA = r_apoapsis; 
+
+deltaV = sqrt(muE/rF) - sqrt((2*muE/rA)-(2*muE/(rF+rA))); 
 
 
 

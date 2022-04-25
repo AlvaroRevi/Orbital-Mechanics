@@ -9,7 +9,7 @@ s = sin(angle);
 
 switch axis
     case 1
-        R = [1, 0, 0;0, c, -s;0, s, c ];
+        R = [1, 0, 0; 0, c, -s; 0, s, c];
 
     case 2
         R = [c, 0, -s;0, 1, 0; s, 0, c];
