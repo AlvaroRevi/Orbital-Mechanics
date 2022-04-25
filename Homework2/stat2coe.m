@@ -1,4 +1,4 @@
-function coe = stat2coe(y,mu) 
+function coe = stat2coe(X,mu) 
 %  Compute the classical orbital elements (COE) at the impact of
 %  observations provided the position and velocity vectors. 
 %     Inputs: 
@@ -16,8 +16,8 @@ function coe = stat2coe(y,mu)
 %             theta: true anomaly [rad] 
 
 % Retrieve position and velocity from state vector
-r0 = y(1:3); 
-v0 = y(4:6);
+r0 = X(1:3); 
+v0 = X(4:6);
 
 % Compute the norm of r,v 
 r = norm(r0);                 % Norm of the position vector 
