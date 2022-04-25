@@ -1,4 +1,4 @@
-function omega_b0 = nominal(mu,a,e,w,nu) 
+function omega_b0 = nominal_hw(mu,a,e,w,nu) 
 % Compute the nominal angular velocity vector omega_b0 to keep the Nadir 
 % orientation in the orbit defined by mu, a,e and w as a function of the
 % true anomaly 
