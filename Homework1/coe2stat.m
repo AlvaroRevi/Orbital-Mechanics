@@ -29,25 +29,35 @@ function X = coe2stat(coe,mu)
    h = sqrt(mu*p);
 
 % Compute the auxiliary basis B1 
-    R1 = rot3(3,-Omega); 
+   R0 = rot3(3,-Omega); 
 
-    i_1 = [1,0,0]*R1; 
-    j_1 = [0,1,0]*R1; 
-    k_1 = [0,0,1]*R1;
+   i_1 = [1,0,0]*R0; 
+   j_1 = [0,1,0]*R0; 
+   k_1 = [0,0,1]*R0;
 % Compute the auxiliary basis B2
-  i_2 = i_1; 
-  j_2 = cos(i)*j_1 + sin(i)*k_1; 
-  k_2 = -sin(i)*j_1 + cos(i)*k_1;
-%   R2 = rot3(1,-i); 
-%     i_2 = i_1*R2; 
-%     j_2 = j_1*R2;
-%     k_2 = k_1*R2;
-
+   i_2 = i_1; 
+   j_2 = cos(i)*j_1 + sin(i)*k_1; 
+   k_2 = -sin(i)*j_1 + cos(i)*k_1;
+   
+   R1 = rot3(1,-i); 
+   
+   i_2 = i_1*R1; 
+   j_2 = j_1*R1;    
+   k_2 = k_1*R1;
+   
+   R2 = rot3(3,-omega);
 % Compute the perifocal reference frame 
-  i_PQR = cos(omega)*i_2 +sin(omega)*j_2; 
-  j_PQR = -sin(omega)*i_2 + cos(omega)*j_2; 
-  k_PQR = k_2; 
+   i_PQR = cos(omega)*i_2 +sin(omega)*j_2; 
+   j_PQR = -sin(omega)*i_2 + cos(omega)*j_2; 
+   k_PQR = k_2; 
   
+  rotation = R0*R2*R1; 
+
+  i_P = rotation(1,:); 
+  j_P = rotation(2,:); 
+  k_P = rotation(3,:); 
+
+
   r_vec = r*(cos(theta)*i_PQR + sin(theta)*j_PQR); 
 
   r_d = e*mu*sin(theta)/h;
