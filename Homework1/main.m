@@ -106,8 +106,8 @@ theta_B = coe(6);
 r_periapsis = a_A*(1-e_A);
 r_apoapsis = a_A*(1+e_A); 
 
-rF = r_periapsis;
-rA = r_apoapsis; 
+rF = a_A*(1-e_A);
+rA = a_A*(1+e_A); 
 
 deltaV = sqrt(muE/rF) - sqrt((2*muE/rA)-(2*muE/(rF+rA))); 
 
