@@ -3,7 +3,8 @@ function R = rot3(axis, angle)
 %     Axis 1 correspond to x-axis
 %     Axis 2 correspond to y-axis 
 %     Axis 3 correspond to z-axis
-
+% NOTE: rot3 name is used instead of rot in order not to get confused with
+% any pre-built function in matlab
 c = cos(angle);
 s = sin(angle);
 

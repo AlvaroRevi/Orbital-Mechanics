@@ -15,7 +15,7 @@ function X = coe2stat(coe,mu)
 %         Outputs: 
 %             X: state vector in the form [r,v]
 
-% Unpack orbital elements %%%
+% Unpack orbital elements 
    a = coe(1);
    e = coe(2);
    i = coe(3);
@@ -23,49 +23,26 @@ function X = coe2stat(coe,mu)
    omega = coe(5);
    theta = coe(6);
 
-% Compute the orbital parameter, the angular momentum and the radius of the orbit
+% Perform the rotation to the PQR axis (periphocal reference frame)  
+  rotation = rot3(3,-omega)*rot3(1,-i)*rot3(3,-Omega); 
+
+  i_PQR = rotation(1,:); 
+  j_PQR = rotation(2,:); 
+  k_PQR = rotation(3,:); 
+
+ % Compute the orbital parameter, the angular momentum and the radius of the orbit
    r = a*(1-e.^2)./(1+e*cos(theta));
    p = a*(1-e.^2);
    h = sqrt(mu*p);
+ 
 
-% Compute the auxiliary basis B1 
-   R0 = rot3(3,-Omega); 
-
-   i_1 = [1,0,0]*R0; 
-   j_1 = [0,1,0]*R0; 
-   k_1 = [0,0,1]*R0;
-% Compute the auxiliary basis B2
-   i_2 = i_1; 
-   j_2 = cos(i)*j_1 + sin(i)*k_1; 
-   k_2 = -sin(i)*j_1 + cos(i)*k_1;
-   
-   R1 = rot3(1,-i); 
-   
-   i_2 = i_1*R1; 
-   j_2 = j_1*R1;    
-   k_2 = k_1*R1;
-   
-   R2 = rot3(3,-omega);
-% Compute the perifocal reference frame 
-   i_PQR = cos(omega)*i_2 +sin(omega)*j_2; 
-   j_PQR = -sin(omega)*i_2 + cos(omega)*j_2; 
-   k_PQR = k_2; 
-  
-  rotation = R0*R2*R1; 
-
-  i_P = rotation(1,:); 
-  j_P = rotation(2,:); 
-  k_P = rotation(3,:); 
-
-
+% Compute the position vector 
   r_vec = r*(cos(theta)*i_PQR + sin(theta)*j_PQR); 
 
-  r_d = e*mu*sin(theta)/h;
-  r_theta_d = h/r;
+% Compute the velocity vector 
+  v_vec = (e*mu*sin(theta)/h)*(cos(theta)*i_PQR + sin(theta)*j_PQR) + (h/r)*(-sin(theta)*i_PQR+cos(theta)*j_PQR);
 
-  v_vec = r_d*(cos(theta)*i_PQR + sin(theta)*j_PQR) + r_theta_d*(-sin(theta)*i_PQR+cos(theta)*j_PQR);
-
-  % Return state vector 
-  X = vertcat(r_vec',v_vec')
+% Return state vector 
+  X = vertcat(r_vec',v_vec');
 end
 
