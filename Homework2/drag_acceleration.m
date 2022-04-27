@@ -9,9 +9,9 @@ function a = drag_acceleration(rho,BC,V)
 %                 a: Perturbing acceleration due to atmospheric drag
 %                 [m/s^2]
         
-    % Convert velocity vector into SI 
+% Convert velocity vector into SI 
     V = V*1000; 
     
-    % Compute drag 
+% Compute drag 
     a = - rho*norm(V)*V/(2*BC); 
 end 
