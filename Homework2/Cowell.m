@@ -16,7 +16,7 @@ function dX_dt = Cowell(X,flag)
     S = 10;                         % Shield area [m^2]
     CD = 1.5;                       % Drag coefficient
     BC = m/(CD*S);                  % Ballistic coefficient [kg/m^2]
-    R_M = 3389.5;                  % Radius of mars [km]
+    R_M = 3389.5;                   % Radius of mars [km]
 
 % Derivative of the state vector    
     dX_dt = zeros(6,1); 
@@ -31,8 +31,8 @@ function dX_dt = Cowell(X,flag)
 % the flag is enabled)
     if flag == true 
         a_p = drag_acceleration(Mars_atmosphere(norm(X(1:3))-R_M),BC,X(4:end));
-        dX_dt(4) = dX_dt(4) - a_p(1);
-        dX_dt(5) = dX_dt(5) - a_p(2);
-        dX_dt(6) = dX_dt(6) - a_p(3);
+        dX_dt(4) = dX_dt(4) + a_p(1);
+        dX_dt(5) = dX_dt(5) + a_p(2);
+        dX_dt(6) = dX_dt(6) + a_p(3);
     end 
 end 

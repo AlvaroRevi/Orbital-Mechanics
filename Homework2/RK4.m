@@ -13,17 +13,17 @@ function X = RK4(X0,dt,flag)
 % Define the linspace considering the timestep introduced as input 
     tf = 90*24*3600;
     t = 0:dt:tf;
-    n = length(t)-1;
+    n = length(t) -1;
 
 % Define the initial condition introduced as input
  X(:,1) = X0;
  
 % Integrate applying RK4 
     for i = 1:n
-        k1 = Cowell(X(:,i),flag);
-        k2 = Cowell(X(:,i)+dt*k1/2,flag);
-        k3 = Cowell(X(:,i)+dt*k2/2,flag);
-        k4 = Cowell(X(:,i)+k3,flag);
-        X(:,i+1) = X(:,i)+((k1+2*k2+2*k3+k4)/6)*dt;
+        k1 = X(:,i);
+        k2 = X(:,i) + Cowell(k1,flag)*dt/2;
+        k3 = X(:,i)+ Cowell(k2,flag)*dt/2;
+        k4 = X(:,i) + dt*Cowell(k3,flag);
+        X(:,i+1) = X(:,i)+ (dt/6)*( Cowell(k1,flag) + 2*Cowell(k2,flag)+ 2*Cowell(k3,flag) + Cowell(k4,flag));
     end
 end
