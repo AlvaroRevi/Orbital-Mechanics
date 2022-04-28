@@ -13,5 +13,6 @@ function a = drag_acceleration(rho,BC,V)
     V = V*1000; 
     
 % Compute drag 
-    a = - rho*norm(V)*V/(2*BC); 
+    a = - rho*norm(V)*V/(2*BC);             % Acceleration [m/s^2]
+    a = a/1000;                             % Acceleration [km/s^2]
 end 
