@@ -29,6 +29,7 @@ function dX_dt = Cowell(X,flag)
  
 % Compute the acceleration due to the atmospheric drag (just in case that
 % the flag is enabled)
+
     if flag == true 
         a_p = drag_acceleration(Mars_atmosphere(norm(X(1:3))-R_M),BC,X(4:end));
         dX_dt(4) = dX_dt(4) + a_p(1);

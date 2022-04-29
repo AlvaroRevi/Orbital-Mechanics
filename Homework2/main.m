@@ -75,36 +75,12 @@ for k=1:length(X4_2(1,:))
     if norm(X4_2(1:3,k))<50
         return
     end
-    coe4_2(:,j) = stat2coe(X4_2(:,j),mu);
+    coe4_2(:,k) = stat2coe(X4_2(:,k),mu);
 end
 
 
-figure 
-hold on
-grid minor
-plot(t4,coe4_2(1,:)/1000)
-legend('Semi-major axis',Interpreter='latex')
-xlabel('time [s]',Interpreter='latex')
-ylabel('a [km]',Interpreter='latex')
-hold off
-
-figure 
-hold on
-grid minor
-plot(t4,coe4_2(2,:)/1000)
-legend('Eccentriity',Interpreter='latex')
-ylabel('e',Interpreter='latex')
-xlabel('time [s]',Interpreter='latex')
-hold off
-
-figure 
-hold on
-grid minor
-plot(t4,coe4_2(4,:))
-legend('Argument of perigee',Interpreter='latex')
-ylabel('$\omega$',Interpreter='latex')
-xlabel('time [s]',Interpreter='latex')
-hold off
+figure(5)
+plot_orbit(t4,coe4_2)
 
 %% Exercise g
 
