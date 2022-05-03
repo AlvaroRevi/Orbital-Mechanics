@@ -68,8 +68,6 @@ legend('$\omega_{A}$','$\omega_{B}$','$\omega_{C}$','Interpreter','latex')
 hold off
 
 %% Exercise d
-
-angles0 = [0 pi/2 0];
 omega_b0 = broken(w,nu(1),angles0,H_G0);
 
 [t,Y] = ode45(@(t,angles) dangles_dt(mu,a,e,w,nu(1),angles,omega_b0), timespan, angles0); 

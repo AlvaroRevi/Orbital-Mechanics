@@ -11,20 +11,23 @@ function dangles_dt = dangles_dt(mu,a,e,w,nu,angles,omega_b0)
 %        Outputs: 
 %             dangles_dt: time derivative of the Euler angles 
 
-% Unpack Euler angles 
-    psi = angles(1); 
-    theta = angles(2); 
-    phi = angles(3); 
 
 % Unpack omega_b0 
-    omegax = omega_b0(1); 
-    omegay = omega_b0(2);
-    omegaz = omega_b0(3); 
- 
-   
+omega_b0nominal=nominal_hw(mu,a,e,w,nu); 
+omegax = omega_b0(1)-omega_b0nominal(1);
+omegay = omega_b0(2)-omega_b0nominal(2);
+omegaz = omega_b0(3)-omega_b0nominal(3);
+
+% Unpack Euler angles 
+psi = angles(1); 
+theta = angles(2); 
+phi = angles(3); 
+
 % Equations 
-    dangles_dt(1,1) = 1/sin(theta)* (omegax*sin(phi) + omegay*cos(phi)); 
-    dangles_dt(2,1) = omegax*cos(phi) + omegay*sin(phi); 
-    dangles_dt(3,1) = omegaz - dangles_dt(1,1)*cos(theta); 
+dangles_dt = zeros(3,1);
+
+dangles_dt(1,1) = 1/sin(theta) * ((2*omegax/sin(psi)) - omegay*cos(psi) - omegax*sin(psi));
+dangles_dt(2,1) = omegax*cos(psi) + omegay*sin(psi);
+dangles_dt(3,1) = omegaz - dangles_dt(1,1)*cos(theta);
 
 end 
