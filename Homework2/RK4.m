@@ -1,4 +1,4 @@
-function X = RK4(X0,dt,flag)
+function [X,t] = RK4(X0,dt,flag)
 % Runge-Kutta 4th order integrator that advances a timestep of dt. The
 % function to integrate consist on the ODE from Cowell's formulation. If
 % flag is enabled, the Cowell function will consider as well the
@@ -10,8 +10,8 @@ function X = RK4(X0,dt,flag)
 %     Output: 
 %         X: State vector for each timestep 
 
-% Define the linspace considering the timestep introduced as input 
     tf = 90*24*3600;
+% Define the linspace considering the timestep introduced as input 
     t = 0:dt:tf;
     n = length(t) -1;
 
