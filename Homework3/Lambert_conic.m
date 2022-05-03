@@ -5,7 +5,7 @@ function [a,e,Omega,i,omega,theta1,theta2] = Lambert_conic(r1,r2,eT,k)
 % Vector k defines the positive direction of the orbital plane normal and 
 % therefore selects between short and long arc solutions
 % 
-% Implementation of the algorithm developes in Avanzini 2008. 
+% Implementation of the algorithm developed in Avanzini 2008. 
 % All vectors given in ICRF 
 %
 % Inputs: 
@@ -56,7 +56,8 @@ function [a,e,Omega,i,omega,theta1,theta2] = Lambert_conic(r1,r2,eT,k)
     pF = aF*(1- eF^2); 
 
 % Shape of the conic 
-    p = pF - eT*norm(r1)*norm(r2)*sin(Dtheta)/norm(c); 
+%     p = pF - eT*norm(r1)*norm(r2)*sin(Dtheta)/norm(c); 
+    p = norm(r1) + dot(r1,e_vec);
     e = norm(e_vec); 
     a = p/(1 - e^2); 
 
@@ -69,16 +70,16 @@ function [a,e,Omega,i,omega,theta1,theta2] = Lambert_conic(r1,r2,eT,k)
     i = acos(dot(k_p,[0,0,1]));
 
 % Compute the RAAN 
-    n = cross([1,0,0],k_c)/norm(cross([1,0,0],k_c)); 
-    Omega = atan2(dot(n,[1,0,0]),dot(n,[0,1,0])); 
+    n = cross([0,0,1],k_c)/norm(cross([0,0,1],k_c)); 
+    Omega = atan2(dot(n,[0,1,0]),dot(n,[1,0,0])); 
 
 % Compute the argument of perigee 
     m = cross(k_c,n); 
-    omega = atan2(dot(i_p,n),dot(i_p,m)); 
+    omega = atan2(dot(i_p,m),dot(i_p,n)); 
 
 % Compute the true anomalies
-    theta1 = acos(dot(i_p,r1)/norm(r1)); 
-    theta2 = acos(dot(i_p,r2)/norm(r2)); 
+    theta1 = atan2(dot(j_p,r1/norm(r1)),dot(i_p,r1/norm(r1))); 
+    theta2 = atan2(dot(j_p,r2/norm(r2)),dot(i_p,r2/norm(r2))); 
 end
     
     

@@ -8,8 +8,8 @@ function [a,e,Omega,i,omega,theta1,theta2] = Lambert_solve(mu,r1,r2,Dt,k)
     eF = -(norm(r2)-norm(r1))/norm(c);
 
 % Define the limits in order to restrict the search to elliptic orbits
-    eT_max = sqrt(1-eF^2); 
-    eT_min = -sqrt(1-eF^2); 
+    eT_max = 0.99*sqrt(1-eF^2); 
+    eT_min = -0.99*sqrt(1-eF^2); 
 
 % First iteration 
 iter = 1; 

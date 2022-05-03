@@ -25,6 +25,10 @@ function Dt = tof(mu,a,e,theta1,theta2)
 
 % Compute the time of flight 
     Dt = (M_e2 - M_e1)/n; 
+
+    if Dt < 0 
+        Dt = Dt + 2*pi/n;
+    end
 end
 
 

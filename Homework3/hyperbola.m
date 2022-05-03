@@ -40,7 +40,7 @@ for i = 1:length(theta_span)
     v = stat(4:end); 
 
     % Compute the normal of the orbital plane 
-    normal = cross(r,vh);
+    normal = cross(r,vh)/norm(cross(r,vh));
     
     % Compute the vectors of the B plane
     
