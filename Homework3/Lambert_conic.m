@@ -56,7 +56,6 @@ function [a,e,Omega,i,omega,theta1,theta2] = Lambert_conic(r1,r2,eT,k)
     pF = aF*(1- eF^2); 
 
 % Shape of the conic 
-%     p = pF - eT*norm(r1)*norm(r2)*sin(Dtheta)/norm(c); 
     p = norm(r1) + dot(r1,e_vec);
     e = norm(e_vec); 
     a = p/(1 - e^2); 
