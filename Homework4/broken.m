@@ -1,5 +1,6 @@
 function omega_b0 = broken(w,nu,angles,H_G0)
-% Tensor of inertia of b+w
+    
+    % Tensor of inertia of b+w
     I_fullG = diag([220,180,300]); 
     
     % Rotate from Bb to Bl (local reference frame)
