@@ -2,7 +2,7 @@ function coe = stat2coe(X,mu)
 %  Compute the classical orbital elements (COE) at the impact of
 %  observations provided the position and velocity vectors. 
 %     Inputs: 
-%         y: state vector with length 6 giving position and velocity of the
+%         X: state vector with length 6 giving position and velocity of the
 %            spacecraft in equatorial ECI frame
 %            [x,y,z,vx,vy,vz]
 %         mu: gravitational constant      
@@ -15,7 +15,7 @@ function coe = stat2coe(X,mu)
 %             omega: argument of periapsis [rad]
 %             theta: true anomaly [rad] 
 
-% Retrieve position and velocity from state vector
+% Unpack position and velocity from state vector
 r0 = X(1:3); 
 v0 = X(4:6);
 

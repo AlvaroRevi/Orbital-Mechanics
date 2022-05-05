@@ -1,4 +1,3 @@
-
 function x = newton(f,df,x0, tol, maxiter)
 % Newton-Rhapson routine with inputs: 
 % f: function handle to be solved 
@@ -33,12 +32,7 @@ while abs(f(x_old)) > tol && i < maxiter
     x_old = x_new;  
     i = i +1;
 end 
-    
-% Check the validity of the solution and raise error if needed
-% if isinf(x) || isnan(x) || (iter>maxiter)
-%     error('THE SOLUTION DIVERGED.');
-% end    
-
+     
 % Print final solution
 fprintf('\nSolution converged\n')
 fprintf('Iteration: %d  x= %.5f  f(x) = %.5E\n',i,x_old,f(x_old))

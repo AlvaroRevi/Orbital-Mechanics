@@ -2,12 +2,12 @@ function coe = stat2coe(X,mu)
 %  Compute the classical orbital elements (COE) at the impact of
 %  observations provided the position and velocity vectors. 
 %     Inputs: 
-%         y: state vector with length 6 giving position and velocity of the
+%         X: state vector with length 6 giving position and velocity of the
 %            spacecraft in equatorial ECI frame
 %            [x,y,z,vx,vy,vz]
 %         mu: gravitational constant      
 %     Outputs: 
-%         coe: vector with classical orbital elements
+%         coe: vector with COEs in the following order
 %             a: semi-major axis of the conic [km]
 %             e: eccentricity 
 %             RAAN: right ascension the ascending node [rad]
@@ -15,28 +15,28 @@ function coe = stat2coe(X,mu)
 %             omega: argument of periapsis [rad]
 %             theta: true anomaly [rad] 
 
-% Retrieve position and velocity from state vector
+% Unpack position and velocity from state vector
 r0 = X(1:3); 
 v0 = X(4:6);
 
 % Compute the norm of r,v 
-r = norm(r0);                 % Norm of the position vector 
-v = norm(v0);                 % Norm of the velocity vector 
+r = norm(r0);                   % Norm of the position vector 
+v = norm(v0);                   % Norm of the velocity vector 
 
 % Use vis-viva equation to compute a
-a = (mu)/(2*mu/r -v^2);     % Semi-major axis [km]
+a = (mu)/(2*mu/r -v^2);         % Semi-major axis 
 
 % Compute the angular momentum, its norm, and the k vector normal to the 
 % orbital plane (periphocal basis)
 
-h_0 = cross(r0,v0);             % Angular momentum vector in ECI (S0) [kg*km^2/s] 
-h = norm(h_0);                  % Angular momentum magnitude [kg*km^2/s]
+h_0 = cross(r0,v0);             % Angular momentum vector in ECI (S0) 
+h = norm(h_0);                  % Angular momentum magnitude 
 
 % Compute the orbital parameter, the eccentricity and the eccentricity
 % vector
 
-p = h^2/mu;                    % Orbital parameter [km]
-e = sqrt(1 - (p/a));            % Eccentricity [-]
+p = h^2/mu;                     % Orbital parameter 
+e = sqrt(1 - (p/a));            % Eccentricity 
 
 e_0 = ((v^2) - (mu/r))*(r0/mu) - v0*(dot(r0,v0)/mu);     % Eccentricity vector in basis ECI (S0)
 
@@ -45,12 +45,12 @@ e_0 = ((v^2) - (mu/r))*(r0/mu) - v0*(dot(r0,v0)/mu);     % Eccentricity vector i
 assert(abs(e - norm(e_0)) < 1e-4);
 
 % Compute the periphocal vector basis
-k_p_0 = h_0/h;                  % Periphocal vector k in basis ECI (S0) 
-i_p_0 = e_0/norm(e_0);          % Periphocal vector i in basis ECI (S0)
-j_p_0 = cross(k_p_0,i_p_0);     % Periphocal vector j in basis ECI (S0)
+k_p_0 = h_0/h;                   % Periphocal vector k in basis ECI (S0) 
+i_p_0 = e_0/norm(e_0);           % Periphocal vector i in basis ECI (S0)
+j_p_0 = cross(k_p_0,i_p_0);      % Periphocal vector j in basis ECI (S0)
 
 % Compute the inclination angle (k_p.k_0 = cos(i))
-i = acos(dot(k_p_0,[0,0,1]));                     % Inclination angle [rad]
+i = acos(dot(k_p_0,[0,0,1]));          % Inclination angle [rad]
 
 % Compute the auxiliary vectors n and m 
 aux_1 = cross([0,0,1],h_0); 

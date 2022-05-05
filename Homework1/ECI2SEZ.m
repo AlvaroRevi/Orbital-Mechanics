@@ -26,31 +26,28 @@ angular_rate = 2*pi/86400;
 varphi = angular_rate*t;        % Longitude [rad]
  
 % Rotation matrix from ECEF (S1) to ECI (S0)
-A_0_1 = [cos(varphi), -sin(varphi), 0;
-         sin(varphi), cos(varphi),0; 
-         0,          0,           1]; 
+R_0_1 = rot3(3,varphi);
 
 % Rotation matrix from ECI (S0) to ECEF (S1) 
-A_1_0 = transpose(A_0_1); 
+R_1_0 = transpose(R_0_1); 
 
 % Rotation matrix from SEZ (S2) to ECEF (S1) 
-A_1_2 = [sin(lambda), 0, cos(lambda); 
-         0,           1,           0; 
-         -cos(lambda), 0, sin(lambda)]; 
+R_1_2 = rot3(2,-pi/2 + lambda); 
 
 % Rotation matrix from ECEF (S1) to SEZ (S2)
-A_2_1 = transpose(A_1_2); 
+R_2_1 = transpose(R_1_2); 
 
 % Compute r0 in SEZ basis and transform it into the ECI basis
-r2_2 = A_2_1*A_1_0*r_ECI - [0;0;rho];        %r2 in S2
-r2_0 = A_0_1*A_1_2*r2_2;                    %r2 in S0 
+
+r2_2 = R_2_1*R_1_0*r_ECI - [0;0;rho];        %r2 in S2
+r2_0 = R_0_1*R_1_2*r2_2;                    %r2 in S0 
 
 % Compute the angular velocity 
 w20_0 = [0;0;angular_rate];     %w20 in S0 
 
 % Compute v0 in ECI (S0) using Coriolis theorem 
 v2_0 = v_ECI - cross(w20_0,r_ECI); 
-v2_2 = A_2_1*A_1_0*v2_0;
+v2_2 = R_2_1*R_1_0*v2_0;
 
 % Return outputs 
 r2 = r2_2; 
