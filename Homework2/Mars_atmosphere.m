@@ -1,7 +1,7 @@
 function rho = Mars_atmosphere(zeta) 
 % Returns the air density at a given height 
 %       Input: 
-%           zeta: height [km]
+%           zeta: height over Mars surface [km]
 %       Output: 
 %           rho: density [kg/m^3]
 
