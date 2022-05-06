@@ -32,10 +32,8 @@ DeltaV_min = 1e5;
 
 for i = 1:length(theta_span)
 
-    r_span(i) = p/(1+e*cos(theta_span(i)));  % Eq 1.32 
-
     % Compute the r and the v associated to each theta in ICRF        
-    stat = coe2stat([a,e,i,Omega,omega,theta_span(i)],mu);
+    X = coe2stat([a,e,i,Omega,omega,theta_span(i)],mu);
     r = stat(1:3); 
     v = stat(4:end); 
 
