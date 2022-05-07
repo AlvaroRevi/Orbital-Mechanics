@@ -12,7 +12,7 @@ function omega_b0 = nominal_hw(mu,a,e,w,nu)
 %           omega_b0: angular velocity vector 
 % 
 
-% Compute the perifocal XXX (no me se el nombre completo)
+% Compute the orbit parameter
     p = a*(1-e^2); 
 
 % Compute the angular momentum magnitude and vector 

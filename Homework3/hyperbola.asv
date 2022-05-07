@@ -3,15 +3,12 @@
 % to go from parking orbit to escape hyperbola.
 %
 % Inputs:
-% ... Parking orbit    
 %    mu: gravitational parameter [km^3/s^2]
 %    a: semi-major axis of the ellipse [km]
 %    e: eccentricity
 %    Omega: RAAN 
 %    i: inclination angle 
 %    omega: argument of periapsis 
-%   
-% ... Hyperbola
 %    vh: scape velocity vector 
 %
 % Output: 
