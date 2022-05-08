@@ -17,7 +17,6 @@ eT = (eT_max + eT_min)/2;
 [a,e,Omega,i,omega,theta1,theta2] = Lambert_conic(r1,r2,eT,k);
 Dt_iter = tof(mu,a,e,theta1,theta2);
 
-
 while (abs(Dt-Dt_iter) > tol) && (iter< maxiter)
     if Dt < Dt_iter
         eT_max = eT; 
@@ -34,4 +33,4 @@ while (abs(Dt-Dt_iter) > tol) && (iter< maxiter)
     end
     iter = iter +1; 
 end
-disp(iter)
+% disp(iter)
