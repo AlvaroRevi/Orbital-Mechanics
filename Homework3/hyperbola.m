@@ -22,46 +22,44 @@
 p = a*(1-e^2); 
 h = sqrt(mu*p); 
 
+% Compute impact parameter
+B = h/norm(vh);
+
+% Obtain SMA in hyperbola
+a_h = -mu/(norm(vh)^2);
+
+% Obtain e knowing SMA and B
+e_h = sqrt((-B/a_h)^2 + 1);
+
 % Span the vector of thetas and compute the radius associated to each 
 theta_span = linspace(0,2*pi,360);
 
-% For each theta, compute the radius of the orbit associated. Then, compute
-% the radius vector associated 
-r_span = zeros(1,length(theta_span));
-
 % Create variables to store the latter best combination
-theta_min = 0;
-DeltaV_min = 1e5;
+theta = 0;
+Dv = 1e5;
 
-for i = 1:length(theta_span)
+for k = 1:length(theta_span)
 
     % Compute the r and the v associated to each theta in ICRF        
-    X = coe2stat([a,e,i,Omega,omega,theta_span(i)],mu);
-    r = stat(1:3); 
-    v = stat(4:end); 
-
-    % Compute the normal of the orbital plane 
-    normal = cross(r,vh)/norm(cross(r,vh));
+    X = coe2stat([a,e,i,Omega,omega,theta_span(k)],mu);
+    r = X(1:3); 
+    v = X(4:end); 
     
-    % Compute the vectors of the B plane
-    s = vh/norm(vh); 
-    t = cross(s,normal)/(norm(s)*norm(normal));
-    m = cross(normal,t);
-    u = cross(s,t);
+    % Compute speed at the hyperbola
+    chi = 2*vh^2;
+    r_h = p/(1+e_h*cos(theta_span(k)));
+    v1_h = 2*(chi + mu/r_h);
 
-    B = sqrt(r_span(i)^2 + (2*r_span(i)*mu/(norm(vh)^2))); 
-    B_vec = B*cos(theta_span(i))*t + B*sin(theta_span(i))*u;
+    % Compute spped in circular parking orbit
+%     v1_cc = sqrt(mu/nomr(r));
+    v1_cc = norm(v);
     
-    ae =  -mu/(norm(vh))^2;
+    % Compute tangential impulsive maneuver
+    DeltaV(k) = abs(v1_h - v1_cc);
 
-    v1_ep = sqrt(mu*(1+ee)/(ae*(1-ee)));
-    v1_cc = sqrt(mu/nomr(r));
-
-    DeltaV(i) = v1_ep - v1_cc;
-
-    if DeltaV(i)<DeltaV_min
-        DeltaV_min = DeltaV(i);
-        theta_min = theta_span(i);
+    if DeltaV(k)<Dv
+        Dv = DeltaV(k);
+        theta = theta_span(k);
     end
 end
 
