@@ -117,44 +117,9 @@ for jj = 1:length(days)
         V_h_M_long = V_M-V_ta_M_long;
 
         [theta_hyp_M, Dv_M] = hyperbola(muM,aM,eM,OmegaM,iM,0,V_h_M_long);
-        
-        DV1 = Dv_V + Dv_M/1000; 
-        C3_1 = Dv_V^2 + Dv_M^2; 
 
-        % Short arc
-        % Apply Lambert solver to determine the hyperbolic velocity at
-        % departure and arrival 
-        k_short = -cross(r_M,r_V)/norm(cross(r_M,r_V));
-        [a_t_short,e_t_short,Omega_t_short,i_t_short,omega_t_short,theta_V_t_short,theta_M_t_short] = Lambert_solve(muS,r_V,r_M,travel_times(kk),k_short);
-        
-        % Departure
-        X_V_lambert_short = coe2stat([a_t_short,e_t_short,i_t_short,Omega_t_short,omega_t_short,theta_V_t_short],muS); 
-        V_tp_V_short = X_V_lambert_short(4:6);        
-        V_h_V_short = V_tp_V_short-V_V;
-
-        [theta_hyp_V, Dv_V] = hyperbola(muV,aV,eV,OmegaV,iV,0,V_h_V_short);
-
-        %Arrival
-        X_M_lambert_short = coe2stat([a_t_short,e_t_short,i_t_short,Omega_t_short,omega_t_short,theta_M_t_short],muS);
-        V_ta_M_short = X_M_lambert_short(4:6);
-        V_h_M_short = V_M-V_ta_M_short;
-
-        [theta_hyp_M, Dv_M] = hyperbola(muM,aM,eM,OmegaM,iM,0,V_h_M_short);
-        
-        DV2 = Dv_V + Dv_M/1000; 
-        C3_2 = Dv_V^2 + Dv_M^2; 
-
-
-        if DV1>DV2
-            Dv_final = DV2;
-            C3_final = C3_2;
-        else
-            Dv_final = DV1;
-            C3_final = C3_1;
-        end
-
-        DV(kk,jj) = Dv_final; 
-        C3(kk,jj) = C3_final; 
+        DV(kk,jj) = Dv_V + Dv_M/1000; 
+        C3(kk,jj) = Dv_V^2 + Dv_M^2; 
 
     end
 
