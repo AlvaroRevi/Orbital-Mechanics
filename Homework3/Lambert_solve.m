@@ -1,6 +1,6 @@
 function [a,e,Omega,i,omega,theta1,theta2] = Lambert_solve(mu,r1,r2,Dt,k)
- tol = 1e-2;
- maxiter = 100000; 
+ tol = 1;
+ maxiter = 1000; 
 % Introduce the chord vector 
     c = r2 - r1; 
 

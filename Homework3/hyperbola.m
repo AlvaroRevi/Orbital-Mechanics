@@ -46,7 +46,7 @@ for k = 1:length(theta_span)
     v = X(4:end); 
     
     % Compute speed at the hyperbola
-    chi = 2*vh^2;
+    chi = (norm(vh)^2)/2;
     r_h = p/(1+e_h*cos(theta_span(k)));
     v1_h = 2*(chi + mu/r_h);
 
