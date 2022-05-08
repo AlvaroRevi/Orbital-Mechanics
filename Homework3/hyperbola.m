@@ -19,17 +19,17 @@
 %    Dv: injection impulse
 
 % Compute orbital parameter and angular momentum 
-p = a*(1-e^2); 
-h = sqrt(mu*p); 
-
-% Compute impact parameter
-B = h/norm(vh);
-
-% Obtain SMA in hyperbola
-a_h = -mu/(norm(vh)^2);
-
-% Obtain e knowing SMA and B
-e_h = sqrt((-B/a_h)^2 + 1);
+% p = a*(1-e^2); 
+% h = sqrt(mu*p); 
+% 
+% % Compute impact parameter
+% B = h/norm(vh);
+% 
+% % Obtain SMA in hyperbola
+% a_h = -mu/(norm(vh)^2);
+% 
+% % Obtain e knowing SMA and B
+% e_h = sqrt((-B/a_h)^2 + 1);
 
 % Span the vector of thetas and compute the radius associated to each 
 theta_span = linspace(0,2*pi,360);
@@ -45,10 +45,21 @@ for k = 1:length(theta_span)
     r = X(1:3); 
     v = X(4:end); 
     
+    % Compute the angular momentum 
+    h = cross(r,v); 
+    B = norm(h)/norm(vh);
+
+    % Obtain SMA in hyperbola
+    a_h = -mu/(norm(vh)^2);
+    
+    % Obtain e knowing SMA and B
+    e_h = sqrt((-B/a_h)^2 + 1);
+    
+    p = a_h*(1-e_h^2); 
     % Compute speed at the hyperbola
     chi = (norm(vh)^2)/2;
     r_h = p/(1+e_h*cos(theta_span(k)));
-    v1_h = 2*(chi + mu/r_h);
+    v1_h = sqrt(2*(chi + mu/r_h));
 
     % Compute spped in circular parking orbit
 %     v1_cc = sqrt(mu/nomr(r));

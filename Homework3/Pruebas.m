@@ -110,7 +110,7 @@ for jj = 1:length(days)
         
         [theta_hyp_M, Dv_M] = hyperbola(muM,aM,eM,OmegaM,iM,omegaM,V_h_M_long);
 
-        DV(kk,jj) = (Dv_V + Dv_M)/1000; 
+        DV(kk,jj) = Dv_V + Dv_M; 
         C3(kk,jj) = Dv_V^2 + Dv_M^2; 
 
     end
@@ -119,8 +119,26 @@ for jj = 1:length(days)
 end
 
 
-figure 
+figure(1) 
 hold on
 contour(DAYS,TRAVEL_TIMES,DV)
 colorbar
+[~, minIdx] = min(DV(:)); 
+[row,col] = ind2sub(size(DV),minIdx); 
+daysMin = DAYS(row,col); 
+ttMin = TRAVEL_TIMES(row,col);
+plot(daysMin, ttMin, 'rx')
+hold off
+
+
+
+figure(2)
+hold on 
+contour(DAYS,TRAVEL_TIMES,C3)
+colorbar 
+[~, minIdx] = min(DV(:)); 
+[row,col] = ind2sub(size(C3),minIdx); 
+daysMin = DAYS(row,col); 
+ttMin = TRAVEL_TIMES(row,col);
+plot(daysMin, ttMin, 'rx')
 hold off
