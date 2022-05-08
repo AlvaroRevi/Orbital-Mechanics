@@ -1,40 +1,48 @@
-function state = coe2stat(A,mu)
-%  function[RIJK,VIJK] = COEstoRV(A)
-%
-%      R = [Ri, Rj, Rk] (radius vector)
-%      V = [Vi, Vj, Vk] (velocity vector)
-%
-%      A = [a, (semi major axis)
-%           e, (eccentricity)
-%           i, (inclination)
-%           node, (right ascension of ascending node)
-%           arg, (argument of perigee)
-%           true (true anomaly) ]
-%
+function X = coe2stat(coe,mu)
+% Get the state vector in the form [r,v] introducing the Classical Orbital Elements
+% and the gravitational constant as inputs. 
+%         Inputs: 
+%             coe: vector with the 6 different COEs in the following order
+%                 a: semimajor axis 
+%                 e: eccentricity 
+%                 i: inclination angle 
+%                 Omega: RAAN 
+%                 omega: argument of perigee 
+%                 theta: true anomaly
+% 
+%            mu: Gravitational constant
+%         
+%         Outputs: 
+%             X: state vector in the form [r,v]
 
-   %%% Parse out orbital elements %%%
-   semi = A(1);
-   e    = A(2);
-   i    = A(3);
-   node = A(4);
-   arg  = A(5);
-   true = A(6);
-   
-   p = semi*(1-e^2);  % p = semi-latus rectum (semiparameter)
-   
-   %%%  Position Coordinates in Perifocal Coordinate System
-   RPQW(1) = p*cos(true) / (1+e*cos(true)); % x-coordinate (km)
-   RPQW(2) = p*sin(true) / (1+e*cos(true)); % y-coordinate (km)
-   RPQW(3) = 0;                             % z-coordinate (km)
-   VPQW(1) = -sqrt(mu/p) * sin(true);       % velocity in x (km/s)
-   VPQW(2) =  sqrt(mu/p) * (e+cos(true));   % velocity in y (km/s)
-   VPQW(3) =  0;                            % velocity in z (km/s)
-   
-   %%%  Transformation Matrix (3 Rotations)  %%%
-   rot = rot3(3,-node)*rot3(1,-i)*rot3(3,-arg);
-   
-   %%%  Transforming Perifocal -> xyz  %%%
-   RIJK = rot*RPQW';
-   VIJK = rot*VPQW';
+% Unpack orbital elements 
+   a = coe(1);
+   e = coe(2);
+   i = coe(3);
+   Omega = coe(4);
+   omega = coe(5);
+   theta = coe(6);
 
-   state = vertcat(RIJK,VIJK); 
+% Perform the rotation to the PQR axis (periphocal reference frame)  
+  rotation = rot3(3,-omega)*rot3(1,-i)*rot3(3,-Omega); 
+
+  i_PQR = rotation(1,:); 
+  j_PQR = rotation(2,:); 
+  k_PQR = rotation(3,:); 
+
+ % Compute the orbital parameter, the angular momentum and the radius of the orbit
+   r = a*(1-e.^2)./(1+e*cos(theta));
+   p = a*(1-e.^2);
+   h = sqrt(mu*p);
+ 
+
+% Compute the position vector 
+  r_vec = r*(cos(theta)*i_PQR + sin(theta)*j_PQR); 
+
+% Compute the velocity vector 
+  v_vec = (e*mu*sin(theta)/h)*(cos(theta)*i_PQR + sin(theta)*j_PQR) + (h/r)*(-sin(theta)*i_PQR+cos(theta)*j_PQR);
+
+% Return state vector 
+  X = vertcat(r_vec',v_vec');
+end
+

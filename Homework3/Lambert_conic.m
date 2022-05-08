@@ -1,6 +1,4 @@
 function [a,e,Omega,i,omega,theta1,theta2] = Lambert_conic(r1,r2,eT,k)
-% Enrique Sentana and Alvaro Reviriego 
-
 % Compute the COE of the transfer trajectory between position vectors r1 
 % and r2, as a function of the transverse eccentricity component, eT . 
 % Vector k defines the positive direction of the orbital plane normal and 

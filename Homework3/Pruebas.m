@@ -115,14 +115,15 @@ for jj = 1:length(days)
 
     end
 
-
 end
-
-
-figure(1) 
+ 
+figure('Renderer', 'painters', 'Position', [20 20 1200 600])
+title('Venus to Mercury total $\Delta v$ $[km^{2}/s^{2}]$','Interpreter','latex')
+xlabel('Days from January 1 2312','Interpreter','latex')
+ylabel('Travel time [days]','Interpreter','latex')
 hold on
-contour(DAYS,TRAVEL_TIMES,DV)
-colorbar
+[C,h]= contour(DAYS,TRAVEL_TIMES,DV,'ShowText','on','LineWidth',1,'LineColor','k')   
+clabel(C,h,[80,90,100])
 [~, minIdx] = min(DV(:)); 
 [row,col] = ind2sub(size(DV),minIdx); 
 daysMin = DAYS(row,col); 
@@ -131,14 +132,59 @@ plot(daysMin, ttMin, 'rx')
 hold off
 
 
-
-figure(2)
+figure('Renderer', 'painters', 'Position', [20 20 1200 600])
+title('Venus to Mercury total $c_{3}$ $[km^{2}/s^{2}]$','Interpreter','latex')
+xlabel('Days from January 1 2312','Interpreter','latex')
+ylabel('Travel time [days]','Interpreter','latex')
 hold on 
-contour(DAYS,TRAVEL_TIMES,C3)
-colorbar 
+contour(DAYS,TRAVEL_TIMES,C3,'ShowText','on','LineWidth',1,'LineColor','k')
 [~, minIdx] = min(DV(:)); 
 [row,col] = ind2sub(size(C3),minIdx); 
 daysMin = DAYS(row,col); 
 ttMin = TRAVEL_TIMES(row,col);
 plot(daysMin, ttMin, 'rx')
 hold off
+
+
+%% Plots 
+
+% Find the COEs of the best heliocentric transfer 
+r_V = X_V_departure(1:3,84); 
+r_M = X_M_arrival(1:3,84);
+k_helio = cross(r_V,r_M)/norm(cross(r_V,r_M));
+[a_helio,e_helio,Omega_helio,i_helio,omega_helio,thetaV_helio,thetaM_helio] = Lambert_solve(muS,r_V,r_M,60,k_helio);
+
+theta_linspace = linspace(0,2*pi,10000);
+for iii = 1:length(theta_linspace)
+    X_helio(:,iii) = coe2stat([a_helio,e_helio,i_helio,Omega_helio,omega_helio,theta_linspace(iii)],muS); 
+end
+
+
+
+close all
+figure(3);
+hold on 
+plot3(0,0,0,'y.','MarkerSize',200)
+plot3(X_V(1,:),X_V(2,:),X_V(3,:),'b')
+plot3(X_M(1,:),X_M(2,:),X_M(3,:),'r')
+for ii = 1:length(X_V)
+    pointVenus = plot3(X_V(1,ii),X_V(2,ii),X_V(3,ii),'b.','MarkerSize',20);
+    pointMercury = plot3(X_M(1,ii),X_M(2,ii),X_M(3,ii),'r.','MarkerSize',20);
+    pause(0.05)
+    delete(pointMercury)
+    delete(pointVenus)
+end
+ylim([-5e7,5e7])
+xlabel('ECI x [m]');
+ylabel('ECI y [m]');
+zlabel('ECI z [m]');
+title('Satellite Orbit in ECI Coordinates');
+grid minor
+
+figure(4)
+hold on 
+plot3(0,0,0,'y.','MarkerSize',20)
+plot3(r_V(1),r_V(2),r_V(3),'b.','MarkerSize',20)
+plot3(r_M(1),r_M(2),r_M(3),'r.','MarkerSize',20)
+plot3(X_helio(1,:),X_helio(2,:),X_helio(3,:))
+grid minor
