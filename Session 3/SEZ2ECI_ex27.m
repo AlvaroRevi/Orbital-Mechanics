@@ -13,7 +13,7 @@ function  [r0,v0] = SEZ2ECI_ex27(r_SEZ,v_SEZ,rho,lambda,t, init_long)
 %     Inputs: 
 %         r_SEZ: position vector in SEZ basis [km] 
 %         v_SEZ: velocity vector in SEZ basis [km]
-%         rho: radius (in this case, radius f the Earth) [km]
+%         rho: radius (in this case, radius of the Earth) [km]
 %         lambda: latitude of the observer [rad]
 %         t: time since the observer crossed the Oxz plane [s]
 %         init_long: longitude of the object when ECI an ECEF are alligned

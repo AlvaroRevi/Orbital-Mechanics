@@ -54,11 +54,11 @@ function diffy = derECI_COE(t,COE,mu,uS,mSC,A,Bc,flag_srp,flag_J2,flag_drag)
     end 
 
     diffa = 2*a^2/h*(e*sin(theta)*accr+(1+e*cos(theta))*acctheta); 
-    diffe = h/mu*(sin(theta)*(accr+cos(theta)+(e+cos(theta))/(1+e*cos(theta)))*acctheta); 
-    diffinc = r*cos(omega + theta)/h*accw; 
-    diffOmega = r*sin(omega + theta)/(h*sin(inc))*accw; 
-    diffomega = -h/(mu*e)*(cos(theta)*accr-((2+e*cos(theta))/(1+e*cos(theta)))*sin(theta)*acctheta)-r*sin(omega+theta)/(h*tan(inc))*accw;
-    difftheta = h/r^2 + h/(mu*e)*(cos(theta)*accr-((2+e*cos(theta))/(1+e*cos(theta)))*sin(theta)*acctheta);
+    diffe = h/mu*(sin(theta)*accr+(cos(theta)+(e+cos(theta))/(1+e*cos(theta)))*acctheta); 
+    diffinc = r*cos(omega+theta)/h *accw; 
+    diffOmega = r*sin(omega+theta)/(h*sin(inc)) *accw; 
+    diffomega = -h/(mu*e)*(cos(theta)*accr -((2+e*cos(theta))/(1+e*cos(theta)))*sin(theta)*acctheta) -r*sin(omega+theta)/(h*tan(inc)) *accw;
+    difftheta = h/r^2 + h/(mu*e)*(cos(theta)*accr -((2+e*cos(theta))/(1+e*cos(theta))) *sin(theta)*acctheta);
 
     diffy = [diffa;diffe;diffinc;diffOmega;diffomega;difftheta];
 end 

@@ -10,12 +10,13 @@ CD = 0.5;
 Bc = (mSC*10^-3)/(CD*A); 
 
 flag_srp = false; 
-flag_J2 = false; 
+flag_J2 = true; 
 flag_drag = false; 
 
 % Initial orbital elements of the spacecraft 
 a_0 = R_e + 150e3;                 % 
 i_0 = deg2rad(30);                 %
+i_0 = 1.7275;    
 omega_0 = deg2rad(50); 
 e_0 = 0.2; 
 Omega_0 = deg2rad(45); 
@@ -27,7 +28,7 @@ theta_0 = deg2rad(100);
 
 % Propagation of trajectory 
 T0 = 2*pi*sqrt(a_0^3/muE); 
-t_span = [0 50*T0]; 
+t_span = [0 24*365*3600]; 
 COE_0 = [a_0;e_0;i_0;Omega_0;omega_0;theta_0]; 
 
 tol = [10^-1 10^-2 10^-3 10^-4 10^-5 10^-6];
@@ -54,7 +55,7 @@ figure(1)
     ylabel('$i-i_{0}$ ','Interpreter','latex')
 
     subplot(2,3,4)
-    plot(t/(24*3600),(coe(:,4)-Omega_0)/1000)
+    plot(t/(24*3600),(rad2deg(coe(:,4)-Omega_0))/1000)
     xlabel('$t$ [days]','Interpreter','latex')
     ylabel('$RAAN - RAAN_{0}$ ','Interpreter','latex')
 

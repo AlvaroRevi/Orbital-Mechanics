@@ -1,11 +1,9 @@
 function dXdt = derPolar(t,X,a,alpha) 
 % % Compute the derivative of the state vector 
 %     Inputs: 
-%         r: 
-%         u: 
-%         v: 
-%         a: 
-%         alpha: 
+%         X: state vector = [r theta u v]
+%         a: accelertion due to thrust
+%         alpha: thrust angle wrt local horizontal
 %     Outputs:
 %         dXdt: derivative of the state vector 
 dXdt = [ X(3); 

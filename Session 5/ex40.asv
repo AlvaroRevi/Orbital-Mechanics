@@ -1,0 +1,36 @@
+clc;
+clear;
+
+% Earth-Sun orbit properties
+a = 149.6e6;
+e = 0.0167;
+p = a*(1-e^2);
+period = 365*24*3600;
+mu = 1327120e5;
+
+% Earth properties
+nE = sqrt(mu/(a)^3);
+RE = 6371;
+J2 = 0.00108263;
+
+% SSO required precession rate
+deltaOmega = 2*pi/(3600*365*24);
+
+% Inclination to set SSO
+% inc = acos(deltaOmega*((p/RE)^2)/(-3*pi*J2));
+inc
+
+rp = a*(1-e);
+vp = sqrt(mu*(1+e)/(a*(1-e)));
+h = rp*vp;
+
+r = @(theta) p./(1+e.*cos(theta));
+theta_span = linspace(0,2*pi,360);
+Omega = 0;
+
+for i=1:length(theta_span)
+    dOmegadt(i) = -3*J2.*cos(inc).*(sin(Omega+theta_span(i)).^2).*mu.*(RE^2)./(h.*r(theta_span(i)).^3); % [rad/s]
+    Omega = Omega + dOmegadt(i);
+end
+
+dOmegadt = dOmegadt * 3600*24*180/pi;

@@ -1,0 +1,9 @@
+clear;
+clc;
+close all
+
+% S/C vectors in ECI
+r1 = [“ 15945.34]
+
+r2
+

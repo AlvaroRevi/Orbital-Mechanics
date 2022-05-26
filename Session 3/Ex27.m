@@ -43,7 +43,7 @@ v_SC_2 = [-rho_dot*cos(eps)*cos(beta) + rho*eps_dot*sin(eps)*cos(beta) + rho*bet
           rho_dot*cos(eps)*sin(beta) - rho*eps_dot*sin(eps)*sin(beta) + rho*beta_dot*cos(eps)*cos(beta), 
           rho_dot*sin(eps) + rho*eps_dot*sin(eps)]; 
 
-[r0,v0] = SEZ2ECI_ez27(r_SC_2,v_SC_2,r_GS,phi,time, lambda); 
+[r0,v0] = SEZ2ECI_ex27(r_SC_2,v_SC_2,r_GS,phi,time,lambda); 
 
 [a,e,RAAN,i,omega,theta] = rv2coe(r0,v0); 
 
