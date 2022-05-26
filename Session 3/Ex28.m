@@ -21,8 +21,16 @@ v1 = (1/norm(r1))*sqrt(muE/(norm(N)*norm(D)))*cross(D,r1) + sqrt(muE/(norm(N)*no
 v2 = (1/norm(r2))*sqrt(muE/(norm(N)*norm(D)))*cross(D,r2) + sqrt(muE/(norm(N)*norm(D)))*S; 
 v3 = (1/norm(r3))*sqrt(muE/(norm(N)*norm(D)))*cross(D,r3) + sqrt(muE/(norm(N)*norm(D)))*S; 
 
+v1 = (1/norm(r1))*sqrt(muE/(norm(N)*norm(D)))*cross(D,r1) + sqrt(muE/(norm(N)*norm(D)))*S;
+v3 = (1/norm(r3))*sqrt(muE/(norm(N)*norm(D)))*cross(D,r3) + sqrt(muE/(norm(N)*norm(D)))*S;
+
+X1 = vertcat(r1',v1'); 
+X2 = vertcat(r2',v2'); 
+X3 = vertcat(r3',v3'); 
+
 % Get the Classical Orbit Elements starting from position and velocity
 % vectors
+<<<<<<< Updated upstream
 [a1,e1,RAAN1,i1,omega1,theta1] = rv2coe(r1,v1);
 % RAAN1 = rad2deg(RAAN1); 
 % i1 = rad2deg(i1);
@@ -40,3 +48,14 @@ v3 = (1/norm(r3))*sqrt(muE/(norm(N)*norm(D)))*cross(D,r3) + sqrt(muE/(norm(N)*no
 % i3 = rad2deg(i3);
 % omega3 = rad2deg(omega3);
 % theta3 = rad2deg(theta3); 
+=======
+% [a,e,RAAN,i,omega,theta] = rv2coe(r2,v2);
+% RAAN = rad2deg(RAAN); 
+% i = rad2deg(i);
+% omega = rad2deg(omega);
+% theta = rad2deg(theta); 
+
+coe1 = stat2coe(X1,muE);
+coe2 = stat2coe(X2,muE);
+coe3 = stat2coe(X3,muE);
+>>>>>>> Stashed changes

@@ -19,11 +19,10 @@ function force = srp_force(u_s,r_SC,A)
     absrSCperp = norm(r_SC - r_SC_para*(-u_s)); 
     
     if r_SC_para >= 0 && absrSCperp <= R_earth 
-        force = 0; 
+        force = [0;0;0]; 
     else 
         force = -P_s*A*u_s; 
     end
 end
     
 
-end 
