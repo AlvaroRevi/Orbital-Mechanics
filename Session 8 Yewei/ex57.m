@@ -15,15 +15,11 @@ angles = [0;0.08755337349;0];
 
 I_basisb = diag([Ix,Iy,Iz]);
 omegab0_basisb = [0;pi/36;pi/6]; 
+% omegab0_basisb = [0;0;pi/6]; % Stable spin wb0 (no perturbation in jb)
 
-% Check that the calculated angle 
-% oRb = rot3(3,angles(1))*rot3(1,angles(2))*rot3(3,angles(3)); 
-% 
-% H_G0_basisb = I_basisb*omegab0_basisb;
-% 
-% H_G0_basis0 = oRb*H_G0_basisb;
+y0 = [angles;omegab0_basisb];
 
-[t,Y] = ode45(@(t,X) derangles(X,omegab0_basisb), linspace(0,100,1000), angles); 
+[t,Y] = ode45(@(t,X) derattitude2(t,X,Ix,Iy,Iz), linspace(0,100,1000), y0); 
 
 figure(1) 
 hold on 
