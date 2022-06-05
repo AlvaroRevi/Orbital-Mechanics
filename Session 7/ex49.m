@@ -13,7 +13,7 @@ mE = 5.97219e24;
 xS = 0;
 mS = 1.989e30;
 
-m = mE/mS; % m = mS + mE approx muE
+m = mE/(mS+mE); % m = mS + mE approx muE
 
 % ws = sqrt(G*mu/L^3);
 aux_fun = @(x) -(1-m)*(x+m)/abs((x+m)^3) -m*(x+m-1)/abs((x+m-1)^3) +x;

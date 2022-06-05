@@ -5,7 +5,7 @@ clc;
 clear;
 close all
 
-% Earth
+% Jupiter
 xJ = 1;
 mJ = 1.898e27;
 
@@ -13,12 +13,13 @@ mJ = 1.898e27;
 xS = 0;
 mS = 1.989e30;
 
-mu = mJ/mS; % m = mS + mE approx muE
+mu = mJ/(mS+mJ); % m = mS + mE approx muE
 mu = 9.5369e-04; % From prof Zhou
 
 % ws = sqrt(G*mu/L^3);
 aux_fun = @(x) -(1-mu)*(x+mu)/abs((x+mu)^3) -mu*(x+mu-1)/abs((x+mu-1)^3) +x;
 
+% Lagrange points
 aux1 = fsolve(@(x) aux_fun(x),0.95);
 aux2 = fsolve(@(x) aux_fun(x),1.05);
 aux3 = fsolve(@(x) aux_fun(x),-0.9);
@@ -68,7 +69,7 @@ z = linspace(-1,1,N);
 
 figure
 hold on
-plot3(aux1,0,0,x','MarkerSize',6,'Color','k')
+plot3(aux1,0,0,'x','MarkerSize',6,'Color','k')
 plot3(aux2,0,0,'x','MarkerSize',6,'Color','k')
 plot3(aux3,0,0,'x','MarkerSize',6,'Color','k')
 plot3(aux4(1),aux4(2),0,'x','MarkerSize',6,'Color','k')
